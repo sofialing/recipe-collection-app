@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { db } from '../firebase';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from 'contexts/AuthContext';
+import { getRecipesSnapshot } from 'services/firebase';
 
 const useRecipes = () => {
     const [error, setError] = useState(false);
@@ -11,25 +11,29 @@ const useRecipes = () => {
     const categories = {}
 
     useEffect(() => {
-        const unsubscribe = db.collection('recipes')
-            .where('owner', '==', user.uid)
-            .orderBy('title')
-            .onSnapshot(snapshot => {
+        const unsubscribe = getRecipesSnapshot(user.uid, {
+            next: snapshot => {
                 setLoading(true);
-                const snapshotRecipes = [];
+                const _recipes = [];
+
                 snapshot.forEach(doc => {
-                    snapshotRecipes.push({
-                        id: doc.id,
-                        ...doc.data()
-                    })
+                    _recipes.push({ id: doc.id, ...doc.data() })
                 })
-                setRecipes(snapshotRecipes);
+
+                setRecipes(_recipes);
                 setLoading(false);
-            })
+            },
+            error: error => {
+                setError(error.message);
+                setLoading(false);
+
+            }
+        })
+
         return unsubscribe;
     }, [user.uid])
 
-    return { categories, recipes, loading }
+    return { categories, recipes, loading, error }
 
 }
 

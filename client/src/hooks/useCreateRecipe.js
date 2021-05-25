@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { db } from '../firebase';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from 'contexts/AuthContext';
+import { createRecipe } from 'services/firebase';
 
 const useCreateRecipe = (recipe, submit) => {
     const [loading, setLoading] = useState(false);
@@ -14,19 +14,14 @@ const useCreateRecipe = (recipe, submit) => {
             return;
         }
         setLoading(true);
-        db.collection('recipes').add({
-            ...recipe,
-            owner: user.uid,
-        }).then(() => {
-            setLoading(false);
-            setError(false);
-            navigate('/recipes');
-        }).catch(error => {
-            setError(error);
-            setLoading(false);
-            console.log(error);
+        createRecipe(recipe, user.uid)
+            .then(() => {
+                navigate('/recipes');
 
-        });
+            }).catch(error => {
+                setLoading(false);
+                setError(error.message);
+            })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [submit])
 
