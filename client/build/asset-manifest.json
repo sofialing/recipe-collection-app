@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.dba23d3b.chunk.css",
+    "main.js": "/static/js/main.ced2926b.chunk.js",
+    "main.js.map": "/static/js/main.ced2926b.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.900dd88b.js",
+    "runtime-main.js.map": "/static/js/runtime-main.900dd88b.js.map",
+    "static/js/2.f59637c9.chunk.js": "/static/js/2.f59637c9.chunk.js",
+    "static/js/2.f59637c9.chunk.js.map": "/static/js/2.f59637c9.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.dba23d3b.chunk.css.map": "/static/css/main.dba23d3b.chunk.css.map",
+    "static/js/2.f59637c9.chunk.js.LICENSE.txt": "/static/js/2.f59637c9.chunk.js.LICENSE.txt",
+    "static/media/login-hero.2026fe4a.jpg": "/static/media/login-hero.2026fe4a.jpg",
+    "static/media/main-hero.5e202cd3.jpg": "/static/media/main-hero.5e202cd3.jpg",
+    "static/media/recipe-hero.f7906b62.jpg": "/static/media/recipe-hero.f7906b62.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.900dd88b.js",
+    "static/js/2.f59637c9.chunk.js",
+    "static/css/main.dba23d3b.chunk.css",
+    "static/js/main.ced2926b.chunk.js"
+  ]
+}
