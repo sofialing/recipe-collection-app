@@ -25,4 +25,7 @@ const db = firebase.firestore();
 // get firebase storage
 const storage = firebase.storage();
 
-export { auth, db, storage, firebase as default }
+const arrayToUpdate = (value) => firebase.firestore.FieldValue.arrayUnion(value)
+
+
+export { arrayToUpdate, auth, db, storage, firebase as default }
