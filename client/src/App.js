@@ -1,7 +1,7 @@
-import AuthContextProvider from './contexts/AuthContext'
-import Footer from './components/Footer';
-import Navbar from './components/Navbar';
-import AppRoutes from './routes/AppRoutes';
+import AuthContextProvider from 'contexts/AuthContext'
+import Footer from 'components/layout/Footer';
+import Navbar from 'components/layout/Navbar';
+import AppRoutes from 'routes';
 
 const App = () => {
   return (
