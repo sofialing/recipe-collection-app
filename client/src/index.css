@@ -8,8 +8,17 @@
     body {
       @apply antialiased min-h-screen;
     }
+}
 
-  }
+.btn {
+    @apply tracking-wider text-white bg-green-500 border-green-500 border py-3 px-8 focus:outline-none hover:bg-white hover:text-green-500 rounded-3xl;
+}
+.btn-outline {
+    @apply text-green-500 bg-white hover:bg-green-500 hover:text-white;
+}
+.btn-sm {
+    @apply text-sm py-3 px-5;
+}
 
 .spinner {
     display: inline-block;

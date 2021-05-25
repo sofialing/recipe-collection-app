@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { auth } from '../firebase'
+import { auth } from 'database';
 const AuthContext = createContext();
 
 const useAuth = () => {
@@ -7,17 +7,24 @@ const useAuth = () => {
 }
 
 const AuthContextProvider = ({ children }) => {
+    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setUser(user);
+            setLoading(false);
         })
         return unsubscribe;
     }, [])
 
     const createAccount = ({ name, email, password }) => {
-        return auth.createUserWithEmailAndPassword(email, password).then(({ user }) => user.updateProfile({ displayName: name }))
+        return auth.createUserWithEmailAndPassword(email, password)
+            .then(({ user }) => user.updateProfile({ displayName: name }))
+    }
+
+    const deleteAccount = () => {
+        return user.delete();
     }
 
     const login = (email, password) => {
@@ -28,11 +35,33 @@ const AuthContextProvider = ({ children }) => {
         return auth.signOut();
     }
 
+    const resetPassword = (email) => {
+        return auth.sendPasswordResetEmail(email);
+    }
+
+    const updateEmail = (email) => {
+        return user.updateEmail(email);
+    }
+
+    const updateProfile = (displayName) => {
+        return user.updateProfile({ displayName });
+    }
+
+    const updatePassword = (newPassword) => {
+        return user.updatePassword(newPassword);
+    }
+
     const contextValues = {
-        user,
         createAccount,
+        deleteAccount,
+        loading,
         login,
-        logout
+        logout,
+        resetPassword,
+        updateEmail,
+        updatePassword,
+        updateProfile,
+        user,
     }
 
     return (

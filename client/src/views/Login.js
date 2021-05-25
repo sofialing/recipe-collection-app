@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import image from '../assets/images/login-hero.jpg';
-import Form from '../components/LoginForm';
+import { useAuth } from 'contexts/AuthContext';
+import image from 'assets/images/login-hero.jpg';
+import Form from 'components/forms/LoginForm';
 
 const Login = () => {
     const [loading, setLoading] = useState(false);
@@ -25,7 +25,6 @@ const Login = () => {
             setError(error.message);
             setLoading(false);
         }
-
     }
 
     return (

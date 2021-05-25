@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import Form from '../components/CreateAccountForm';
-import image from '../assets/images/login-hero.jpg';
+import { useAuth } from 'contexts/AuthContext';
+import Form from 'components/forms/CreateAccountForm';
+import image from 'assets/images/login-hero.jpg';
 
 const CreateAccount = () => {
     const navigate = useNavigate();
@@ -12,14 +12,12 @@ const CreateAccount = () => {
 
     const onCreateAccount = async credentials => {
         try {
-            console.log('createAccount', credentials)
             setLoading(true);
             await createAccount(credentials);
             navigate('/recipes');
         } catch (error) {
             setLoading(false);
             setError(error.message);
-            console.log(error);
         }
     }
 
