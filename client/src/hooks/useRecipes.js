@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react';
 import { useAuth } from 'contexts/AuthContext';
 import { getRecipesSnapshot } from 'services/firebase';
 
-const useRecipes = () => {
+const useRecipes = (cuisineType, recipeType) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [recipes, setRecipes] = useState([]);
     const { user } = useAuth();
-
-    const categories = {}
 
     useEffect(() => {
         const unsubscribe = getRecipesSnapshot(user.uid, {
@@ -24,6 +22,8 @@ const useRecipes = () => {
                 setLoading(false);
             },
             error: error => {
+                console.log(error.message);
+
                 setError(error.message);
                 setLoading(false);
 
@@ -33,7 +33,7 @@ const useRecipes = () => {
         return unsubscribe;
     }, [user.uid])
 
-    return { categories, recipes, loading, error }
+    return { recipes, loading, error, setRecipes }
 
 }
 

@@ -11,6 +11,12 @@ const CreateAccount = () => {
     const [error, setError] = useState(null);
 
     const onCreateAccount = async credentials => {
+        if (credentials.password !== credentials.confirm) {
+            return setError('Passwords do not match, please try again.');
+        }
+
+        setError(null);
+
         try {
             setLoading(true);
             await createAccount(credentials);
@@ -22,9 +28,9 @@ const CreateAccount = () => {
     }
 
     return (
-        <section className="container px-5 py-24 mx-auto flex flex-grow flex-wrap items-center">
+        <section className="container mx-auto flex-grow flex flex-col-reverse lg:flex-row items-center px-5 py-16 md:py-24">
             <Form onCreateAccount={onCreateAccount} loading={loading} error={error} />
-            <div className="md:w-1/2 w-5/6">
+            <div className="mb-12 lg:mb-0 lg:w-1/2">
                 <img className="object-cover object-center" alt="hero" src={image} />
             </div>
         </section>

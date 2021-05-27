@@ -1,39 +1,44 @@
-import { useRef } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom';
+import InputField from 'components/partials/InputField';
+import Label from 'components/partials/Label';
 
 const CreateAccountForm = ({ onCreateAccount, loading, error }) => {
-    const nameRef = useRef();
-    const emailRef = useRef();
-    const passwordRef = useRef();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
 
     const onSubmit = e => {
         e.preventDefault();
 
-        onCreateAccount({
-            name: nameRef.current.value,
-            email: emailRef.current.value,
-            password: passwordRef.current.value
-        });
+        onCreateAccount({ name, email, password, confirm});
     }
 
     return (
-        <form onSubmit={onSubmit} className="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:mr-auto w-full mt-10 md:mt-0">
-            <h2 className="text-gray-900 text-lg font-medium title-font mb-5">Create account</h2>
-            <div className="relative mb-4">
-                <label htmlFor="full-name" className="leading-7 tracking-widest text-xs title-font font-medium uppercase text-green-500">Full Name</label>
-                <input type="text" id="full-name" ref={nameRef} className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required />
+        <form onSubmit={onSubmit} className="w-full lg:w-2/6 flex flex-col md:mr-auto">
+            <h2 className="text-gray-900 text-2xl font-medium mb-5">Sign up for free</h2>
+            <div className="mb-4">
+                <Label htmlFor="full-name" text="Full Name" required={true} />
+                <InputField type="text" id="full-name" value={name} isRequired={true} handleChange={setName} />
             </div>
-            <div className="relative mb-4">
-                <label htmlFor="email" className="leading-7 tracking-widest text-xs title-font font-medium uppercase text-green-500">Email</label>
-                <input type="email" id="email" ref={emailRef} className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required />
+            <div className="mb-4">
+                <Label htmlFor="email" text="Email" required={true} />
+                <InputField type="email" id="email" value={email} isRequired={true} handleChange={setEmail} />
             </div>
-            <div className="relative mb-5">
-                <label htmlFor="password" className="leading-7 tracking-widest text-xs title-font font-medium uppercase text-green-500">Password</label>
-                <input type="password" id="password" ref={passwordRef} className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required />
+            <div className="mb-4">
+                <Label htmlFor="password" text="Password" required={true} />
+                <InputField type="password" id="password" value={password} isRequired={true} handleChange={setPassword} autoComplete="new-password" />
             </div>
-            <button type="submit" disabled={loading} className="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded-lg text-lg">Sign up</button>
-            <p className="text-xs text-gray-500 mt-5">Already have an account? <Link className="underline" to="/login">Log in</Link>.</p>
-            {error && <p className="text-xs text-red-500 mt-3">{error}</p>}
+            <div className="mb-6">
+                <Label htmlFor="confirm" text="Confirm password" required={true} />
+                <InputField type="password" id="confirm" value={confirm} isRequired={true} handleChange={setConfirm} autoComplete="new-password" />
+            </div>
+            <div>
+                <button type="submit" disabled={loading} className="btn inline-block">Create free account</button>
+            </div>
+            <p className="text-sm tracking-wide mt-5">Already have an account? <Link className="hover:underline" to="/login">Log in</Link>.</p>
+            {error && <p className="text-sm text-red-500 mt-3">{error}</p>}
         </form>
     )
 }

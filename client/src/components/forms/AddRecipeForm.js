@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
+import Label from 'components/partials/Label';
+import InputField from 'components/partials/InputField';
+import Alert from 'components/partials/Alert';
 
-const AddRecipeForm = ({ setRecipe, loading }) => {
+const AddRecipeForm = ({ setRecipe }) => {
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [url, setUrl] = useState('');
-
-    const handleInput = async e => {
-        setUrl(e.target.value);
-    }
 
     const onSubmit = async e => {
         e.preventDefault();
@@ -15,29 +16,38 @@ const AddRecipeForm = ({ setRecipe, loading }) => {
             return;
         }
 
+        setError(null);
+        setLoading(true);
+
         try {
             const response = await axios(`/api?url=${url}`);
-            if (response.status === 200) {
+            if (response.status === 200 && response.data) {
                 setRecipe((prevState => ({
                     ...prevState,
                     title: response.data.ogTitle ? response.data.ogTitle : '',
                     desc: response.data.ogDescription ? response.data.ogDescription : '',
-                    image: response.data.ogImage ? response.data.ogImage.url : '',
+                    image: response.data.ogImage?.url ? response.data.ogImage.url : null,
                     url: url,
                 })))
+            } else {
+                setError('Failed to retrieve recipe from link, try again.')
             }
+            setLoading(false);
         } catch (error) {
-            console.log(error);
+            setError(error.message);
         }
     }
 
     return (
         <form onSubmit={onSubmit} className="w-full">
-            <div className="relative">
-                <label htmlFor="url" className="leading-7 tracking-widest text-xs title-font font-medium uppercase text-green-500">Recipe Link</label>
-                <input type="url" id="url" className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required value={url} onChange={handleInput} />
+            <div>
+                <Label text="Recipe link" htmlFor="url" />
+                <InputField type="url" id="url" value={url} handleChange={setUrl} required={true} />
             </div>
-            <button className="inline-block mt-6 btn">Next</button>
+            <div className="flex items-center mt-6">
+                <button type="submit" disabled={loading} className="inline-block btn">Next</button>
+                {error && (<Alert text={error} onClick={setError} />)}
+            </div>
         </form>
     )
 }

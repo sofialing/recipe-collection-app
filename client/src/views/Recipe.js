@@ -3,20 +3,21 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Breadcrumbs from 'components/partials/Breadcrumbs';
 import Spinner from 'components/partials/Spinner';
 import useRecipe from 'hooks/useRecipe';
-import { addToMealPlan, deleteRecipe, getUserMealPlan, toggleFavoriteRecipe } from 'services/firebase';
-import { useAuth } from 'contexts/AuthContext';
+import { deleteRecipe, toggleFavoriteRecipe } from 'services/firebase';
 import Modal from 'components/partials/Modal';
 import EditRecipeForm from 'components/forms/EditRecipeForm';
+import noImg from 'assets/images/image-missing.jpg';
+import Label from 'components/partials/Label';
+import InputDate from 'components/partials/InputDate';
+import useAddToMealPlan from 'hooks/useAddToMealPlan';
 
 const Recipe = () => {
     const [showModal, setShowModal] = useState(false);
-    const [showMealPlanModal, setShowMealPlanModal] = useState(false);
     const { slug } = useParams();
     const { recipe, loading } = useRecipe(slug);
     const [favorite, setFavorite] = useState(recipe.favorite);
-    const [date, setDate] = useState(null);
-    const { user } = useAuth();
     const navigate = useNavigate();
+    const { showDateModal, setShowDateModal, date, setDate, onAddToMealPlan } = useAddToMealPlan();
 
     const onDeleteRecipe = async () => {
         try {
@@ -27,26 +28,9 @@ const Recipe = () => {
         }
     }
 
-    const onAddToMealPlan = async (e) => {
+    const handleAddToMealPlan = (e) => {
         e.preventDefault();
-
-        if (!date) {
-            return
-        };
-
-        try {
-            const snapshot = await getUserMealPlan(user.uid);
-
-            if (snapshot.empty) {
-                console.log('Could not find user meal plan.');
-                return;
-            }
-
-            await addToMealPlan(snapshot.docs[0].id, recipe, date);
-            navigate('/meal-planner');
-        } catch (error) {
-            console.error('Error updating document: ', error);
-        }
+        onAddToMealPlan(recipe);
     }
 
     const onFavoriteRecipe = async () => {
@@ -72,16 +56,16 @@ const Recipe = () => {
             <section className="container mx-auto px-5 py-24 flex-grow flex flex-col md:flex-row items-center">
                 <div className="md:w-1/2 w-5/6 overflow-hidden">
                     <figure className="aspect-w-3 aspect-h-2">
-                        <img className="object-cover object-center" alt={recipe.title} src={recipe.image} />
+                        <img className="object-cover object-center" alt={recipe.title} src={recipe.image ? recipe.image : noImg} />
                     </figure>
                 </div>
                 <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-                    <h2 className="text-xs text-green-500 tracking-widest font-medium title-font mb-1 uppercase">{recipe.category}</h2>
+                    <h2 className="text-xs text-green-500 tracking-widest font-medium title-font mb-1 uppercase">{recipe.recipeType} &middot; {recipe.cuisineType}</h2>
                     <h1 className="text-3xl sm:text-4xl mb-4 font-medium text-gray-900">{recipe.title}</h1>
                     <p className="mb-8 leading-relaxed">{recipe.desc}</p>
                     <div className="flex items-center">
                         <a href={recipe.url} target="_blank" rel="noreferrer" className="inline-flex btn">View recipe</a>
-                        <button className="ml-4 inline-flex btn btn-outline" onClick={() => setShowMealPlanModal(true)}>Add to meal plan</button>
+                        <button className="ml-4 inline-flex btn btn-outline" onClick={() => setShowDateModal(true)}>Add to meal plan</button>
                     </div>
                     <div className="flex w-full items-center mt-8">
                         <button className="mr-4 text-gray-400 hover:text-red-500 focus:outline-none" onClick={onFavoriteRecipe}>
@@ -109,14 +93,14 @@ const Recipe = () => {
                 <Modal showModal={showModal} setShowModal={setShowModal}>
                     <EditRecipeForm recipe={recipe} setShowModal={setShowModal} />
                 </Modal>
-                <Modal showModal={showMealPlanModal} setShowModal={setShowMealPlanModal}>
-                    <form onSubmit={onAddToMealPlan}>
+                <Modal showModal={showDateModal} setShowModal={setShowDateModal}>
+                    <form onSubmit={handleAddToMealPlan}>
                         <h2 className="text-gray-900 text-xl mb-4 mr-24 font-medium">Add recipe to meal plan</h2>
                         <div className="relative mb-4">
-                            <label htmlFor="date" className="leading-7 tracking-widest text-xs title-font font-medium uppercase text-green-500">Pick a date</label>
-                            <input type="date" id="date" className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setDate(e.target.valueAsDate)} />
+                            <Label htmlFor="date" text="Pick a date" />
+                            <InputDate id="date" value={date} handleChange={setDate} />
                         </div>
-                        <button className="btn inline-block">Add</button>
+                        <button type="submit" className="btn inline-block">Add</button>
                     </form>
                 </Modal>
             </section>

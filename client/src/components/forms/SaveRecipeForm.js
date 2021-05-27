@@ -1,40 +1,74 @@
-const categories = [
-    'breakfast', 'brunch', 'lunch', 'dinner', 'snack', 'appetiser',
-]
+import { useState } from 'react';
+import noImg from 'assets/images/image-missing.jpg';
+import InputField from 'components/partials/InputField';
+import Label from 'components/partials/Label';
+import TextArea from 'components/partials/TextArea';
+import InputSelect from 'components/partials/InputSelect';
+
+const recipeTypes = [
+    { value: 'bread', option: 'Bread' },
+    { value: 'breakfast-brunch', option: 'Breakfast & Brunch' },
+    { value: 'dinner', option: 'Dinner' },
+    { value: 'dessert', option: 'Dessert' },
+    { value: 'drink', option: 'Drink' },
+    { value: 'lunch', option: 'Lunch' },
+    { value: 'snacks-appetizer', option: 'Snacks & Appetizer' },
+];
+
+const cuisineTypes = [
+    { value: 'asian-food', option: 'Asian Food' },
+    { value: 'italian-food', option: 'Italian Food' },
+    { value: 'nordic-food', option: 'Nordic Food' },
+    { value: 'thai-food', option: 'Thai Food' },
+    { value: 'american-food', option: 'American Food' },
+    { value: 'indian-food', option: 'Indian Food' },
+    { value: 'mexican-food', option: 'Mexican Food' },
+    { value: 'greek-food', option: 'Greek Food' },
+    { value: 'middle-eastern-food', option: 'Middle Eastern Food' },
+];
+
 const SaveRecipeForm = ({ recipe, setRecipe, setSubmit, loading }) => {
-    const handleChange = e => {
-        setRecipe((prevstate) => ({
-            ...prevstate,
-            [e.target.id]: e.target.value,
-        }));
-    }
+    const [title, setTitle] = useState(recipe.title);
+    const [desc, setDesc] = useState(recipe.desc);
+    const [recipeType, setRecipeType] = useState('');
+    const [cuisineType, setCuisineType] = useState('');
+
     const onSubmit = e => {
         e.preventDefault();
+        setRecipe((prevstate) => ({
+            ...prevstate,
+            title,
+            desc,
+            recipeType,
+            cuisineType,
+        }));
         setSubmit(true);
     }
+
     return (
         <div className="flex flex-col md:flex-row-reverse">
             <div className="w-full md:w-1/2 mb-4 md:mb-0">
-                <img className="object-cover object-center" alt={recipe.title} src={recipe.image} />
+                <img className="object-cover object-center" alt={recipe.title} src={recipe.image ? recipe.image : noImg} />
             </div>
             <form className="w-full md:w-1/2 lg:flex-grow md:pr-16" onSubmit={onSubmit}>
                 <h2 className="text-gray-900 text-xl mb-4 font-medium">Add recipe to collection</h2>
-                <div className="relative mb-4">
-                    <label htmlFor="title" className="leading-7 tracking-widest text-xs font-medium uppercase text-green-500">Title</label>
-                    <input type="text" id="title" className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value={recipe.title} onChange={handleChange} />
+                <div className="mb-4">
+                    <Label htmlFor="title" text="Title" />
+                    <InputField type="text" id="title" value={title} handleChange={setTitle} isRequired={true} />
                 </div>
-                <div className="relative mb-4">
-                    <label htmlFor="desc" className="leading-7 tracking-widest text-xs font-medium uppercase text-green-500">Description</label>
-                    <textarea id="desc" className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 h-32 text-base outline-none text-gray-700 py-2 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" value={recipe.desc} onChange={handleChange} />
+                <div className="mb-4">
+                    <Label htmlFor="desc" text="Description" />
+                    <TextArea type="text" id="desc" value={desc} handleChange={setDesc} isRequired={false} />
                 </div>
-                <div className="relative mb-5">
-                    <label htmlFor="category" className="leading-7 tracking-widest text-xs font-medium uppercase text-green-500">Category</label>
-                    <select id="category" className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out" value={recipe.category} onChange={handleChange} required>
-                        <option value="">Choose a category</option>
-                        {categories.map(category =>
-                            <option key={category} value={category}>{category}</option>
-                        )};
-                        </select>
+                <div className="mb-6 flex">
+                    <div className="mr-2 flex-1">
+                        <Label htmlFor="recipeType" text="Recipe type" />
+                        <InputSelect options={recipeTypes} value={recipeType} id="recipeType" onChange={setRecipeType} defaultValue="Select recipe type" />
+                    </div>
+                    <div className="ml-2 flex-1">
+                        <Label htmlFor="cuisineType" text="Cuisine type" />
+                        <InputSelect options={cuisineTypes} value={cuisineType} id="cuisineType" onChange={setCuisineType} defaultValue="Select cuisine type" />
+                    </div>
                 </div>
                 <button type="submit" disabled={loading} className="btn">Save recipe</button>
             </form>

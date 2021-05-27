@@ -3,7 +3,7 @@ import image from 'assets/images/recipe-hero.jpg';
 import Form from 'components/forms/UpdateAccountForm';
 import { useAuth } from 'contexts/AuthContext';
 
-const Account = () => {
+const UserAccount = () => {
     const [loading, setLoading] = useState(false);
     const [notification, setNotification] = useState(null);
     const { user, deleteAccount, updateProfile, updateEmail, updatePassword } = useAuth();
@@ -49,13 +49,13 @@ const Account = () => {
 
 
     return (
-        <section className="container px-5 py-24 mx-auto flex flex-grow flex-wrap items-center">
+        <section className="container mx-auto flex-grow flex flex-col-reverse lg:flex-row items-center px-5 py-16 md:py-24">
             <Form loading={loading} notification={notification} user={user} onDeleteAccount={onDeleteAccount} onUpdateProfile={onUpdateProfile} />
-            <div className="md:w-1/2 w-5/6">
+            <div className="mb-12 lg:mb-0 lg:w-1/2">
                 <img className="object-cover object-center" alt="hero" src={image} />
             </div>
         </section>
     )
 }
 
-export default Account
+export default UserAccount;

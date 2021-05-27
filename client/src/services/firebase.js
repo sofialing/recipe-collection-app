@@ -1,7 +1,6 @@
 import { db, arrayToUpdate } from 'database';
 import { nanoid } from 'nanoid';
 import slugify from 'slugify';
-
 /**
  * Delete a recipe from Cloud Firestore.
  * 
@@ -33,7 +32,7 @@ export const addToMealPlan = (docId, recipe, date) => {
             recipes: arrayToUpdate({
                 ...recipe,
                 id: nanoid(16),
-                date: date
+                date
             })
         });
 }
@@ -137,4 +136,16 @@ export const deleteRecipeFromMealPlan = (recipes, userId) => {
         .then(querySnapshot => {
             querySnapshot.docs[0].ref.update({ recipes })
         })
+}
+
+/**
+ * Create new meal plan
+ * 
+ * @param {String} userId The ID of the current user.
+ */
+export const createMealPlan = (userId) => {
+    return db.collection('meal-plans').add({
+        ownerId: userId,
+        recipes: [],
+    });
 }

@@ -1,6 +1,6 @@
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class',
   theme: {
     fontFamily: {
       sans: ['canada-type-gibson', 'sans-serif'],
@@ -8,7 +8,9 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      opacity: ['disabled'],
+    }
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),

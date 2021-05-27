@@ -7,8 +7,9 @@ import Recipes from 'views/Recipes';
 import Recipe from 'views/Recipe';
 import CreateRecipe from 'views/CreateRecipe';
 import MealPlanner from 'views/MealPlanner';
-import Account from 'views/Account';
+import UserAccount from 'views/UserAccount';
 import NotFound from 'views/NotFound';
+import GroceryList from 'views/GroceryList';
 
 const AppRoutes = () => {
     return (
@@ -37,7 +38,10 @@ const AppRoutes = () => {
                 <MealPlanner />
             </ProtectedRoute>
             <ProtectedRoute path="account">
-                <Account />
+                <UserAccount />
+            </ProtectedRoute>
+            <ProtectedRoute path="grocery-list">
+                <GroceryList />
             </ProtectedRoute>
             <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,7 +1,8 @@
 import moment from 'moment';
+import noImg from 'assets/images/image-missing.jpg';
 
 const MealCard = ({ recipe, onRemoveRecipe }) => {
-    const date = moment(recipe.date.toDate()).calendar({
+    const date = moment(recipe.date).calendar({
         sameDay: '[Today]',
         nextDay: '[Tomorrow]',
         nextWeek: 'dddd, MMMM Do',
@@ -11,9 +12,9 @@ const MealCard = ({ recipe, onRemoveRecipe }) => {
     })
 
     return (
-        <div className="p-4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+        <div className="p-4 w-full md:w-1/2 lg:w-1/3 xl:w-1/4">
             <div className="h-full flex flex-col border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-                <img className="md:h-40 lg:h-60 w-full object-cover object-center" src={recipe?.image} alt="recipe" />
+                <img className="h-60 w-full object-cover object-center" src={recipe.image ? recipe.image : noImg} alt={recipe.title} />
                 <div className="p-6 flex-grow flex flex-col">
                     <h3 className="tracking-widest text-xs font-medium uppercase text-gray-400 mb-1">{date}</h3>
                     <h2 className="text-lg font-medium text-gray-900 flex-grow">{recipe.title}</h2>

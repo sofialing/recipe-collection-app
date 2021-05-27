@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from 'contexts/AuthContext';
 import { getMealPlanSnapshot } from '../services/firebase';
+import moment from 'moment';
 
 const useMealPlans = () => {
     const [error, setError] = useState(false);
@@ -15,7 +16,9 @@ const useMealPlans = () => {
                 if (snapshot.empty) {
                     setError('Oh no! Could not find mealplan.')
                 } else {
-                    const recipes = snapshot.docs[0].data().recipes.sort((a, b) => a.date.seconds - b.date.seconds);
+                    const recipes = snapshot.docs[0].data().recipes.sort((a, b) => {
+                        return moment(a.date).format('X') - moment(b.date).format('X')
+                    });
 
                     setMealPlan({
                         id: snapshot.docs[0].id,

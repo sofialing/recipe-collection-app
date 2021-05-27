@@ -11,10 +11,10 @@
 }
 
 .btn {
-    @apply tracking-wider text-white bg-green-500 border-green-500 border py-3 px-8 focus:outline-none hover:bg-white hover:text-green-500 rounded-3xl;
+    @apply tracking-wider text-white bg-green-500 border-green-500 border py-3 px-8 focus:outline-none hover:bg-white hover:text-green-500 rounded-3xl dark:hover:bg-gray-800 disabled:opacity-50;
 }
 .btn-outline {
-    @apply text-green-500 bg-white hover:bg-green-500 hover:text-white;
+    @apply text-green-500 bg-white hover:bg-green-500 hover:text-white dark:bg-gray-800;
 }
 .btn-sm {
     @apply text-sm py-3 px-5;
@@ -74,4 +74,8 @@
     100% {
         transform: translate(24px, 0);
     }
+}
+
+button:disabled {
+    cursor: not-allowed;
 }

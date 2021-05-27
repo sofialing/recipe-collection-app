@@ -7,7 +7,7 @@ const App = () => {
   return (
     <AuthContextProvider>
       <Navbar />
-      <main className="flex-grow flex flex-col text-gray-600">
+      <main className="flex-grow flex flex-col text-gray-600  dark:text-white">
         <AppRoutes />
       </main>
       <Footer />
