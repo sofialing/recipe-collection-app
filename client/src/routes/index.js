@@ -14,7 +14,7 @@ import GroceryList from 'views/GroceryList';
 const AppRoutes = () => {
     return (
         <Routes>
-            <Route path="/">
+            <Route exact path="">
                 <Home />
             </Route>
             <Route path="login">

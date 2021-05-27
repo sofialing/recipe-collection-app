@@ -24,7 +24,7 @@ const Home = () => {
 
             </div>
             <figure className="mb-12 lg:mb-0 lg:w-1/2">
-                <img className="object-cover object-center" alt="hero" src={image} />
+                <img alt="Vegan meal" width="640" height="427" src={image} />
             </figure>
         </section>
     )
