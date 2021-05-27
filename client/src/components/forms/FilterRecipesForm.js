@@ -32,11 +32,11 @@ const FilterRecipesForm = ({ cuisineType, setcuisineType, recipeType, setRecipeT
 
     return (
         <form className="flex items-end flex-wrap mb-8 -m-4">
-            <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4">
+            <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-4 md:mb-0">
                 <Label text="Recipe type" htmlFor="recipeType" />
                 <InputSelect options={recipeTypes} value={recipeType} id="recipeType" onChange={setRecipeType} defaultValue="Select recipe type" />
             </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4">
+            <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-5 md:mb-0">
                 <Label text="Cuisine type" htmlFor="cuisineType" />
                 <InputSelect options={cuisineTypes} value={cuisineType} id="cuisineType" onChange={setcuisineType} defaultValue="Select cuisine type" />
             </div>

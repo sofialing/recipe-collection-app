@@ -27,13 +27,13 @@ const CreateRecipe = () => {
     }, [recipe.url])
 
     return (
-        <section className="container mx-auto flex-grow flex flex-col lg:flex-row items-center px-5 py-16 md:py-24">
-            <div className="lg:flex-grow lg:w-1/2 lg:pr-24 flex flex-col lg:items-start lg:text-left items-center text-center mb-12 lg:mb-0">
+        <section className="container mx-auto flex-grow flex flex-col-reverse lg:flex-row items-center px-5 py-16 md:py-24">
+            <div className="lg:flex-grow lg:w-1/2 lg:pr-24 flex flex-col lg:items-start lg:text-left items-center text-center">
                 <h1 className="sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Add new recipe</h1>
                 <p className="mb-8 leading-relaxed">Chillwave portland ugh, knausgaard fam polaroid iPhone. Man braid swag typewriter affogato, hella selvage wolf narwhal dreamcatcher.</p>
                 <AddRecipeForm setRecipe={setRecipe} loading={loading} />
             </div>
-            <div className="w-full lg:w-1/2">
+            <div className="w-full lg:w-1/2 mb-12 lg:mb-0">
                 <img className="object-cover object-center" alt="hero" src={image} />
             </div>
             <Modal showModal={showModal} setShowModal={setShowModal}>

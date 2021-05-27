@@ -53,13 +53,13 @@ const Recipe = () => {
     return (
         <>
             <Breadcrumbs title={recipe.title} />
-            <section className="container mx-auto px-5 py-24 flex-grow flex flex-col md:flex-row items-center">
-                <div className="md:w-1/2 w-5/6 overflow-hidden">
+            <section className="container mx-auto px-5 py-16 md:py-24 flex-grow flex flex-col md:flex-row items-center">
+                <div className="w-full lg:w-1/2 mb-10 lg:mb-0 overflow-hidden">
                     <figure className="aspect-w-3 aspect-h-2">
                         <img className="object-cover object-center" alt={recipe.title} src={recipe.image ? recipe.image : noImg} />
                     </figure>
                 </div>
-                <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+                <div className="lg:flex-grow lg:w-1/2 lg:pl-24 flex flex-col lg:items-start lg:text-left items-center text-center">
                     <h2 className="text-xs text-green-500 tracking-widest font-medium title-font mb-1 uppercase">{recipe.recipeType} &middot; {recipe.cuisineType}</h2>
                     <h1 className="text-3xl sm:text-4xl mb-4 font-medium text-gray-900">{recipe.title}</h1>
                     <p className="mb-8 leading-relaxed">{recipe.desc}</p>
@@ -67,7 +67,7 @@ const Recipe = () => {
                         <a href={recipe.url} target="_blank" rel="noreferrer" className="inline-flex btn">View recipe</a>
                         <button className="ml-4 inline-flex btn btn-outline" onClick={() => setShowDateModal(true)}>Add to meal plan</button>
                     </div>
-                    <div className="flex w-full items-center mt-8">
+                    <div className="flex w-full items-center justify-center lg:justify-start mt-8">
                         <button className="mr-4 text-gray-400 hover:text-red-500 focus:outline-none" onClick={onFavoriteRecipe}>
                             {favorite
                                 ? (<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">

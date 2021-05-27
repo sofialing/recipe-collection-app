@@ -39,7 +39,7 @@ const AddRecipeForm = ({ setRecipe }) => {
     }
 
     return (
-        <form onSubmit={onSubmit} className="w-full">
+        <form onSubmit={onSubmit} className="w-full text-left">
             <div>
                 <Label text="Recipe link" htmlFor="url" />
                 <InputField type="url" id="url" value={url} handleChange={setUrl} required={true} />
