@@ -21,7 +21,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-            <MobileMenu toggleMenu={toggleMenu} />
+            <MobileMenu toggleMenu={toggleMenu} setToggleMenu={setToggleMenu} />
         </nav>
     )
 }

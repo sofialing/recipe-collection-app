@@ -47,6 +47,10 @@ const AuthContextProvider = ({ children }) => {
         return user.updateProfile({ displayName });
     }
 
+    const updatePhoto = (photoURL) => {
+        return user.updateProfile({ photoURL });
+    }
+
     const updatePassword = (newPassword) => {
         return user.updatePassword(newPassword);
     }
@@ -60,6 +64,7 @@ const AuthContextProvider = ({ children }) => {
         resetPassword,
         updateEmail,
         updatePassword,
+        updatePhoto,
         updateProfile,
         user,
     }

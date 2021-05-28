@@ -1,4 +1,4 @@
-import { db, arrayToUpdate } from 'database';
+import { db, storage, arrayToUpdate } from 'database';
 import { nanoid } from 'nanoid';
 import slugify from 'slugify';
 /**
@@ -148,4 +148,16 @@ export const createMealPlan = (userId) => {
         ownerId: userId,
         recipes: [],
     });
+}
+
+/**
+ * Upload user profile photo
+ * 
+ * @param {Object} photo 
+ */
+export const uploadProfilePhoto = (photo) => {
+    const fileRef = storage.ref(`avatars/${photo.name}`);
+    const uploadTask = fileRef.put(photo);
+
+    return uploadTask.then(async snapshot => await snapshot.ref.getDownloadURL())
 }

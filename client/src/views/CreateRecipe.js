@@ -34,7 +34,7 @@ const CreateRecipe = () => {
                 <AddRecipeForm setRecipe={setRecipe} loading={loading} />
             </div>
             <div className="w-full lg:w-1/2 mb-12 lg:mb-0">
-                <img className="object-cover object-center" alt="hero" src={image} />
+                <img alt="" src={image} width="640" height="427" />
             </div>
             <Modal showModal={showModal} setShowModal={setShowModal}>
                 <SaveRecipeForm recipe={recipe} setRecipe={setRecipe} setSubmit={setSubmit} loading={loading} />

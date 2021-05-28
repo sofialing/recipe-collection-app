@@ -10,6 +10,7 @@ import MealPlanner from 'views/MealPlanner';
 import UserAccount from 'views/UserAccount';
 import NotFound from 'views/NotFound';
 import GroceryList from 'views/GroceryList';
+import Logout from 'views/Logout';
 
 const AppRoutes = () => {
     return (
@@ -42,6 +43,9 @@ const AppRoutes = () => {
             </ProtectedRoute>
             <ProtectedRoute path="grocery-list">
                 <GroceryList />
+            </ProtectedRoute>
+            <ProtectedRoute path="logout">
+                <Logout />
             </ProtectedRoute>
             <Route path="*" element={<NotFound />} />
         </Routes>
