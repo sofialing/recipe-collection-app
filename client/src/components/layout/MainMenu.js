@@ -6,7 +6,7 @@ const MainMenu = () => {
         <div className="flex-1 flex">
             <div className="flex-shrink-0 flex items-center">
                 <Link to="/">
-                    <img className="h-8 w-auto" src={logoWordmark} alt="RecipeHacker" />
+                    <img className="h-8 w-auto" src={logoWordmark} alt="RecipeHacker" height="32" width="158" />
                 </Link>
             </div>
             <div className="hidden md:block md:ml-auto">

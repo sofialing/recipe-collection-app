@@ -7,7 +7,7 @@ const Navbar = () => {
     const [toggleDropdown, setToggleDropdown] = useState(false);
 
     return (
-        <nav className="bg-white shadow-sm">
+        <nav className="bg-white shadow-sm sticky top-0 z-30">
             <div className="container mx-auto px-5">
                 <div className="relative flex items-center justify-between h-16">
                     <MainMenu />

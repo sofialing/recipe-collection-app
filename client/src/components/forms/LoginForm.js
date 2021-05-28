@@ -27,7 +27,7 @@ const LoginForm = ({ onLogin, loading, error }) => {
             <div>
                 <button type="submit" disabled={loading} className="btn inline-block">Log in</button>
             </div>
-            <p className="text-sm tracking-wide mt-5">New to Recipebox? <Link className="hover:underline" to="/create-account">Sign up</Link>.</p>
+            <p className="text-base md:text-sm tracking-wide mt-6">New to Recipebox? <Link className="hover:underline text-green-500" to="/create-account">Sign up</Link>.</p>
             {error && <p className="text-xs text-red-500 mt-3">{error}</p>}
         </form>
     )

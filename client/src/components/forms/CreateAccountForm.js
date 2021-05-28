@@ -12,7 +12,7 @@ const CreateAccountForm = ({ onCreateAccount, loading, error }) => {
     const onSubmit = e => {
         e.preventDefault();
 
-        onCreateAccount({ name, email, password, confirm});
+        onCreateAccount({ name, email, password, confirm });
     }
 
     return (
@@ -37,7 +37,7 @@ const CreateAccountForm = ({ onCreateAccount, loading, error }) => {
             <div>
                 <button type="submit" disabled={loading} className="btn inline-block">Create free account</button>
             </div>
-            <p className="text-sm tracking-wide mt-5">Already have an account? <Link className="hover:underline" to="/login">Log in</Link>.</p>
+            <p className="text-base md:text-sm tracking-wide mt-6">Already have an account? <Link className="hover:underline text-green-500" to="/login">Log in</Link>.</p>
             {error && <p className="text-sm text-red-500 mt-3">{error}</p>}
         </form>
     )

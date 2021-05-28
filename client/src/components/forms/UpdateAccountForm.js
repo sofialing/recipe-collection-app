@@ -29,7 +29,7 @@ const UpdateAccountForm = ({ loading, user, notification, onDeleteAccount, onUpd
             <h2 className="text-gray-900 text-2xl font-medium mb-5">Update profile</h2>
             <div className="mb-4 flex">
                 <div className="w-1/2 mr-4">
-                    <Label htmlFor="full-name" text="Full Name" required={true} />
+                    <Label htmlFor="full-name" text="Name" required={true} />
                     <InputField type="text" id="full-name" value={displayName} isRequired={true} handleChange={setDisplayName} />
                 </div>
                 <div className="w-1/2">
@@ -71,9 +71,9 @@ const UpdateAccountForm = ({ loading, user, notification, onDeleteAccount, onUpd
                     </div>
                 </div>
             </div>
-            <div className="flex">
+            <div className="flex flex-col md:flex-row">
                 <button type="submit" disabled={loading} className="inline-block btn">Update account</button>
-                <button disabled={loading} onClick={onDelete} className="inline-block ml-4 btn btn-outline">Delete account</button>
+                <button disabled={loading} onClick={onDelete} className="inline-block mt-4 md:mt-0 md:ml-4 btn danger outline">Delete account</button>
             </div>
             {notification && <p className="text-sm mt-4">{notification}</p>}
         </form>

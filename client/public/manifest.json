@@ -1,6 +1,6 @@
 {
-  "name": "Recipe Hacker",
-  "short_name": "Recipe Hacker",
+  "name": "Recipebox",
+  "short_name": "Recipebox",
   "icons": [
     {
       "src": "manifest-icon-192.png",

@@ -96,11 +96,11 @@ const Recipe = () => {
                 <Modal showModal={showDateModal} setShowModal={setShowDateModal}>
                     <form onSubmit={handleAddToMealPlan}>
                         <h2 className="text-gray-900 text-xl mb-4 mr-24 font-medium">Add recipe to meal plan</h2>
-                        <div className="relative mb-4">
+                        <div className="mb-6">
                             <Label htmlFor="date" text="Pick a date" />
                             <InputDate id="date" value={date} handleChange={setDate} />
                         </div>
-                        <button type="submit" className="btn inline-block">Add</button>
+                        <button type="submit" className="btn block">Add</button>
                     </form>
                 </Modal>
             </section>
