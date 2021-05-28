@@ -47,13 +47,13 @@ const SaveRecipeForm = ({ recipe, setRecipe, setSubmit, loading }) => {
 
     return (
         <div className="flex flex-col md:flex-row-reverse">
-            <div className="w-full md:w-1/2 mb-4 md:mb-0">
+            <div className="hidden md:block md:w-1/2 mb-4 md:mb-0">
                 <img className="object-cover object-center" alt={recipe.title} src={recipe.image ? recipe.image : noImg} />
             </div>
             <form className="w-full md:w-1/2 lg:flex-grow md:pr-16" onSubmit={onSubmit}>
                 <h2 className="text-gray-900 text-xl mb-4 font-medium">Add recipe to collection</h2>
                 <div className="mb-4">
-                    <Label htmlFor="title" text="Title" />
+                    <Label htmlFor="title" text="Title" required={true} />
                     <InputField type="text" id="title" value={title} handleChange={setTitle} isRequired={true} />
                 </div>
                 <div className="mb-4">

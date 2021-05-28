@@ -48,7 +48,7 @@ const EditRecipeForm = ({ recipe, setShowModal }) => {
 
     return (
         <div className="flex flex-col md:flex-row-reverse">
-            <div className="w-full md:w-1/2 mb-4 md:mb-0 overflow-hidden">
+            <div className="hidden md:block md:w-1/2 mb-4 md:mb-0 overflow-hidden">
                 <figure className="aspect-w-3 aspect-h-2">
                     <img className="object-cover object-center" alt={recipe.title} src={recipe.image ? recipe.image : noImg} />
                 </figure>

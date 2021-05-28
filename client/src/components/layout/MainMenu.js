@@ -1,24 +1,20 @@
 import { Link, NavLink } from 'react-router-dom';
-import logo from 'assets/images/logo.svg';
 import logoWordmark from 'assets/images/logo-wordmark-dark.svg';
 
 const MainMenu = () => {
     return (
-        <div className="flex-1 flex items-center justify-center md:items-stretch md:justify-start">
+        <div className="flex-1 flex">
             <div className="flex-shrink-0 flex items-center">
-                <Link to="/" className="block xl:hidden">
-                    <img className="h-9 w-auto" src={logo} alt="RecipeHacker" width="36" height="36" />
-                </Link>
-                <Link to="/" className="hidden xl:block">
-                    <img className="h-9 w-auto" src={logoWordmark} alt="RecipeHacker" />
+                <Link to="/">
+                    <img className="h-8 w-auto" src={logoWordmark} alt="RecipeHacker" />
                 </Link>
             </div>
             <div className="hidden md:block md:ml-auto">
                 <div className="flex space-x-4">
                     <NavLink to="/" className="navlink" end>Home</NavLink>
-                    <NavLink to="/add-recipe" className="navlink">Add recipe</NavLink>
-                    <NavLink to="/recipes" className="navlink">Recipe collection</NavLink>
-                    <NavLink to="/meal-planner" className="navlink">Meal Planner</NavLink>
+                    <NavLink to="/add-recipe" className="navlink">New Recipe</NavLink>
+                    <NavLink to="/recipes" className="navlink">Recipe Collection</NavLink>
+                    <NavLink to="/meal-planner" className="navlink">Meal Plan</NavLink>
                 </div>
             </div>
         </div>

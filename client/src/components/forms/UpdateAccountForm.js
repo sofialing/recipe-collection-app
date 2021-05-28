@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Label from 'components/partials/Label';
 import InputField from 'components/partials/InputField';
-import { storage } from 'database';
 
 const UpdateAccountForm = ({ loading, user, notification, onDeleteAccount, onUpdateProfile }) => {
     const [displayName, setDisplayName] = useState(user.displayName);

@@ -24,15 +24,16 @@
 .navlink.active {
     @apply text-gray-900;
 }
-.navlink-mobile {
-    @apply block text-base;
-}
 
 .is-closed {
-    @apply transform opacity-0 scale-95;
+    @apply transform opacity-0 scale-95 pointer-events-none transition-all;
 }
 .is-open {
-    @apply transform opacity-100 scale-100;
+    @apply transform opacity-100 scale-100 transition-all;
+}
+
+.active-mobile {
+    @apply bg-gray-200;
 }
 
 .spinner {
@@ -92,5 +93,5 @@
 }
 
 button:disabled {
-    cursor: not-allowed;
+    cursor: default;
 }
