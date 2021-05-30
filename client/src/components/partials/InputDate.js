@@ -1,4 +1,4 @@
-const InputDate = ({ id, value, handleChange }) => {
+const InputDate = ({ id, value, handleChange, isRequired = false }) => {
     return (
         <input
             type="date"
@@ -6,6 +6,7 @@ const InputDate = ({ id, value, handleChange }) => {
             value={value}
             className="w-full bg-white rounded border border-gray-300 focus:border-green-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             onChange={(e) => handleChange(e.target.value)}
+            required={isRequired}
         />
     )
 }

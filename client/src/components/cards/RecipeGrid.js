@@ -30,7 +30,7 @@ const RecipeGrid = ({ recipes }) => {
             <Modal showModal={showDateModal} setShowModal={setShowDateModal}>
                 <form onSubmit={onSubmit}>
                     <h2 className="text-gray-900 text-xl mb-4 mr-24 font-medium">Add recipe to meal plan</h2>
-                    <div className="relative mb-4">
+                    <div className="mb-5">
                         <Label htmlFor="date" text="Pick a date" />
                         <InputDate id="date" value={date} handleChange={setDate} />
                     </div>

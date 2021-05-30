@@ -161,3 +161,22 @@ export const uploadProfilePhoto = (photo) => {
 
     return uploadTask.then(async snapshot => await snapshot.ref.getDownloadURL())
 }
+
+export const updateMealPlanDate = (recipe, newDate) => {
+    return db.collection('meal-plans')
+        .where('ownerId', '==', recipe.ownerId)
+        .get()
+        .then(querySnapshot => {
+            querySnapshot.docs[0].ref.get()
+                .then(snapshot => {
+                    const recipes = snapshot.data().recipes.map(item =>
+                        item.id === recipe.id
+                            ? { ...item, date: newDate }
+                            : item
+                    );
+
+                    return snapshot.ref.update({ recipes });
+                })
+        })
+
+}

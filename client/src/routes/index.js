@@ -10,6 +10,7 @@ import MealPlanner from 'views/MealPlanner';
 import UserAccount from 'views/UserAccount';
 import NotFound from 'views/NotFound';
 import GroceryList from 'views/GroceryList';
+import ResetPassword from 'views/ResetPassword';
 
 const AppRoutes = () => {
     return (
@@ -19,6 +20,9 @@ const AppRoutes = () => {
             </Route>
             <Route path="login">
                 <Login />
+            </Route>
+            <Route path="reset-password">
+                <ResetPassword />
             </Route>
             <Route path="create-account">
                 <CreateAccount />
