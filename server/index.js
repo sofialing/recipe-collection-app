@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3001;
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.all('/', function (req, res, next) {
+    console.log('hello from app/all');
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
@@ -16,11 +17,12 @@ app.all('/', function (req, res, next) {
 // Extract Open Graph info.
 app.get('/api', (req, res) => {
     const options = {
-        url: req.query['url']
+        url: req.query['url'],
+        timeout: 15000,
     };
     ogs(options, (error, results, response) => {
         if (error) {
-            console.log('error:', results);
+            console.log('results:', results);
             return res.json(results.err)
         }
         console.log('results:', results);
