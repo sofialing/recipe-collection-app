@@ -24,6 +24,7 @@ const RecipeGrid = ({ recipes }) => {
 
     return (
         <>
+            <span className="block text-sm tracking-wide text-right font-medium text-gray-500 mb-5">Showing {recipes.length} recipes</span>
             <div className="flex flex-wrap -m-4">
                 {recipes.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} setSelectedRecipe={setSelectedRecipe} setShowDateModal={setShowDateModal} />)}
             </div>

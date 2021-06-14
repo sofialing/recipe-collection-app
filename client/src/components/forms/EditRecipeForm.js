@@ -1,45 +1,34 @@
 import { useState } from 'react';
-import { updateRecipe } from 'services/firebase';
+import { updateRecipe, uploadRecipeImage } from 'services/firebase';
 import noImg from 'assets/images/image-missing.jpg';
 import Label from 'components/partials/Label';
 import InputField from 'components/partials/InputField';
 import InputSelect from 'components/partials/InputSelect';
 import TextArea from 'components/partials/TextArea';
-
-const recipeTypes = [
-    { value: 'bread', option: 'Bread' },
-    { value: 'breakfast-brunch', option: 'Breakfast & Brunch' },
-    { value: 'dinner', option: 'Dinner' },
-    { value: 'dessert', option: 'Dessert' },
-    { value: 'drink', option: 'Drink' },
-    { value: 'lunch', option: 'Lunch' },
-    { value: 'snacks-appetizer', option: 'Snacks & Appetizer' },
-];
-
-const cuisineTypes = [
-    { value: 'asian-food', option: 'Asian Food' },
-    { value: 'italian-food', option: 'Italian Food' },
-    { value: 'nordic-food', option: 'Nordic Food' },
-    { value: 'thai-food', option: 'Thai Food' },
-    { value: 'american-food', option: 'American Food' },
-    { value: 'indian-food', option: 'Indian Food' },
-    { value: 'mexican-food', option: 'Mexican Food' },
-    { value: 'greek-food', option: 'Greek Food' },
-    { value: 'middle-eastern-food', option: 'Middle Eastern Food' },
-];
+import { recipeTypes, cuisineTypes } from 'utils/select-types';
 
 const EditRecipeForm = ({ recipe, setShowModal }) => {
     const [title, setTitle] = useState(recipe.title);
     const [desc, setDesc] = useState(recipe.desc);
     const [recipeType, setRecipeType] = useState(recipe.recipeType);
     const [cuisineType, setCuisineType] = useState(recipe.cuisineType);
+    const [photo, setPhoto] = useState('');
 
     const onSubmit = async e => {
         e.preventDefault();
         try {
-            await updateRecipe(recipe.id, {
-                ...recipe, title, desc, recipeType, cuisineType
-            });
+            // upload new photo, get url
+            if (photo) {
+                const image = await uploadRecipeImage(photo)
+                console.log('image', image);
+                await updateRecipe(recipe.id, {
+                    ...recipe, title, desc, recipeType, cuisineType, image
+                });
+            } else {
+                await updateRecipe(recipe.id, {
+                    ...recipe, title, desc, recipeType, cuisineType,
+                });
+            }
             setShowModal(false);
         } catch (error) {
             console.error("Error updating document: ", error);
@@ -47,26 +36,36 @@ const EditRecipeForm = ({ recipe, setShowModal }) => {
     }
 
     return (
-        <div className="flex flex-col md:flex-row-reverse">
-            <div className="hidden md:block md:w-1/2 mb-4 md:mb-0 overflow-hidden">
-                <figure className="aspect-w-3 aspect-h-2">
-                    <img className="object-cover object-center" alt={recipe.title} src={recipe.image ? recipe.image : noImg} />
+        <form className="flex flex-col md:flex-row-reverse" onSubmit={onSubmit}>
+            <div className="hidden md:block md:w-1/2 mb-4 md:mb-0 overflow-hidden relative">
+                <figure className="aspect-w-3 aspect-h-3 relative">
+                    {photo
+                        ? <img className="object-cover object-center" alt={recipe.title} src={URL.createObjectURL(photo)} />
+                        : <img className="object-cover object-center" alt={recipe.title} src={recipe.image ? recipe.image : noImg} />}
                 </figure>
+                <div className="absolute bottom-3 right-3 bg-white px-5 py-2 rounded-3xl text-center text-sm">
+                    <div className="flex ">
+                        <label htmlFor="image" className="relative cursor-pointer bg-white rounded-md font-medium text-green-500 hover:text-green-500 focus-within:outline-none">
+                            <span>Change image</span>
+                            <input id="image" type="file" accept="image/png, image/jpeg" className="sr-only" onChange={(e) => setPhoto(e.target.files[0])} />
+                        </label>
+                    </div>
+                </div>
             </div>
-            <form className="w-full md:w-1/2 lg:flex-grow md:pr-16" onSubmit={onSubmit}>
+            <div className="w-full md:w-1/2 lg:flex-grow md:pr-16" >
                 <h2 className="text-gray-900 text-xl mb-4 font-medium">Edit recipe</h2>
                 <div className="relative mb-4">
-                    <Label htmlFor="title" text="Title" />
+                    <Label htmlFor="title" text="Title" required={true} />
                     <InputField type="text" id="title" value={title} handleChange={setTitle} isRequired={true} />
                 </div>
                 <div className="relative mb-4">
                     <Label htmlFor="desc" text="Description" />
                     <TextArea type="text" id="desc" value={desc} handleChange={setDesc} isRequired={false} />
                 </div>
-                <div className="mb-6 flex">
+                <div className="mb-4 flex">
                     <div className="mr-2 flex-1">
-                        <Label htmlFor="recipeType" text="Recipe type" />
-                        <InputSelect options={recipeTypes} value={recipeType} id="recipeType" onChange={setRecipeType} defaultValue="Select recipe type" />
+                        <Label htmlFor="recipeType" text="Recipe type" required={true} />
+                        <InputSelect options={recipeTypes} value={recipeType} id="recipeType" onChange={setRecipeType} defaultValue="Select recipe type" isRequired={true} />
                     </div>
                     <div className="ml-2 flex-1">
                         <Label htmlFor="cuisineType" text="Cuisine type" />
@@ -74,11 +73,11 @@ const EditRecipeForm = ({ recipe, setShowModal }) => {
                     </div>
                 </div>
                 <div className="mt-6">
-                    <button type="submit" className="btn mr-4">Save updates</button>
+                    <button type="submit" className="btn mr-4">Save</button>
                     <button type="button" onClick={() => setShowModal(false)} className="inline-block btn btn-outline">Back</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     )
 }
 

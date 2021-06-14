@@ -12,7 +12,10 @@ const RecipeCard = ({ recipe, setShowDateModal, setSelectedRecipe }) => {
             <div className="h-full flex flex-col border border-gray-200 rounded-xl shadow-sm overflow-hidden">
                 <img className="h-60 w-full object-cover object-center" src={recipe.image ? recipe.image : noImg} alt={recipe.title} />
                 <div className="p-6 flex-grow flex flex-col">
-                    <h3 className="tracking-widest text-xs font-medium uppercase text-gray-400 mb-1">{recipe.recipeType} &middot; {recipe.cuisineType}</h3>
+                    <h3 className="tracking-widest text-xs font-medium uppercase text-gray-400 mb-1">
+                        {recipe.recipeType}
+                        {recipe.cuisineType.length ? ` · ${recipe.cuisineType}` : ''}
+                    </h3>
                     <h2 className="text-lg font-medium text-gray-900 flex-grow">{recipe.title}</h2>
                     <div className="flex items-center flex-wrap mt-6">
                         <Link to={recipe.slug} className="btn btn-outline btn-sm flex items-center">View recipe

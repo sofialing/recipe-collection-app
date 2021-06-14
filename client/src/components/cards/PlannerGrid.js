@@ -27,7 +27,7 @@ const PlannerGrid = ({ mealPlan, onRemoveRecipe, onCreateMealPlan }) => {
             )}
             <div className="text-center">
                 <Link to="/recipes" className="inline-block btn">Add recipe</Link>
-                <button className="inline-block mt-5 btn btn-outline md:mt-0 md:ml-4" onClick={() => setShowModal(true)}>Add custom meal</button>
+                <button className="inline-block mt-5 btn btn-outline md:mt-0 ml-4" onClick={() => setShowModal(true)}>Add custom meal</button>
             </div>
             <Modal showModal={showModal} setShowModal={setShowModal}>
                 <AddCustomMeal setShowModal={setShowModal} />

@@ -58,7 +58,7 @@ const UserAccount = () => {
         <section className="container mx-auto flex-grow flex flex-col-reverse lg:flex-row items-center px-5 py-16 md:py-24">
             <Form loading={loading} notification={notification} user={user} onDeleteAccount={onDeleteAccount} onUpdateProfile={onUpdateProfile} />
             <div className="mb-12 lg:mb-0 lg:w-1/2">
-                <img width="640" height="427" alt="" src={image} />
+                <img className="object-cover w-full" width="640" height="427" alt="" src={image} />
             </div>
         </section>
     )

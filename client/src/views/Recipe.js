@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Breadcrumbs from 'components/partials/Breadcrumbs';
 import Spinner from 'components/partials/Spinner';
 import useRecipe from 'hooks/useRecipe';
-import { deleteRecipe, toggleFavoriteRecipe } from 'services/firebase';
+import { deleteRecipe } from 'services/firebase';
 import Modal from 'components/partials/Modal';
 import EditRecipeForm from 'components/forms/EditRecipeForm';
 import noImg from 'assets/images/image-missing.jpg';
@@ -15,7 +15,6 @@ const Recipe = () => {
     const [showModal, setShowModal] = useState(false);
     const { slug } = useParams();
     const { recipe, loading } = useRecipe(slug);
-    const [favorite, setFavorite] = useState(recipe.favorite);
     const navigate = useNavigate();
     const { showDateModal, setShowDateModal, date, setDate, onAddToMealPlan } = useAddToMealPlan();
 
@@ -33,15 +32,6 @@ const Recipe = () => {
         onAddToMealPlan(recipe);
     }
 
-    const onFavoriteRecipe = async () => {
-        try {
-            await toggleFavoriteRecipe(recipe.id, !favorite);
-            setFavorite(prevState => !prevState);
-        } catch (error) {
-            console.error('Error updating document: ', error);
-        }
-    }
-
     if (loading) {
         return (
             <section className="container mx-auto px-5 py-24 flex-grow flex flex-col md:flex-row items-center">
@@ -53,31 +43,24 @@ const Recipe = () => {
     return (
         <>
             <Breadcrumbs title={recipe.title} />
-            <section className="container mx-auto px-5 py-16 md:py-24 flex-grow flex flex-col md:flex-row items-center">
+            <section className="container mx-auto flex-grow flex flex-col lg:flex-row items-center px-5 py-16 md:py-24">
                 <div className="w-full lg:w-1/2 mb-10 lg:mb-0 overflow-hidden">
                     <figure className="aspect-w-3 aspect-h-2">
                         <img className="object-cover object-center" alt={recipe.title} src={recipe.image ? recipe.image : noImg} />
                     </figure>
                 </div>
                 <div className="lg:flex-grow lg:w-1/2 lg:pl-24 flex flex-col lg:items-start lg:text-left items-center text-center">
-                    <h2 className="text-xs text-green-500 tracking-widest font-medium title-font mb-1 uppercase">{recipe.recipeType} &middot; {recipe.cuisineType}</h2>
+                    <h2 className="text-xs text-green-500 tracking-widest font-medium title-font mb-1 uppercase">
+                        {recipe.recipeType}
+                        {recipe.cuisineType.length ? ` · ${recipe.cuisineType}` : ''}
+                    </h2>
                     <h1 className="text-3xl sm:text-4xl mb-4 font-medium text-gray-900">{recipe.title}</h1>
-                    <p className="mb-8 leading-relaxed">{recipe.desc}</p>
-                    <div className="flex items-center">
+                    {recipe.desc.length ? <p className="leading-relaxed">{recipe.desc}</p> : ''}
+                    <div className="flex items-center mt-8">
                         <a href={recipe.url} target="_blank" rel="noreferrer" className="inline-flex btn">View recipe</a>
                         <button className="ml-4 inline-flex btn btn-outline" onClick={() => setShowDateModal(true)}>Add to meal plan</button>
                     </div>
                     <div className="flex w-full items-center justify-center lg:justify-start mt-8">
-                        <button className="mr-4 text-gray-400 hover:text-red-500 focus:outline-none" onClick={onFavoriteRecipe}>
-                            {favorite
-                                ? (<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                                </svg>)
-                                : (<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>)
-                            }
-                        </button>
                         <button onClick={() => setShowModal(true)} className="text-gray-400 mr-4 hover:text-red-500 focus:outline-none" title="Update recipe" aria-label="Update recipe">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />

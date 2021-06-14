@@ -1,7 +1,7 @@
-const InputSelect = ({ options, value, id, onChange, defaultValue = "" }) => {
+const InputSelect = ({ options, value, id, onChange, defaultValue = "", isRequired = false }) => {
     return (
         <div className="relative">
-            <select className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded tracking-wide leading-tight focus:outline-none  focus:border-green-500" id={id} value={value} onChange={(e) => onChange(e.target.value)}>
+            <select className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded tracking-wide leading-tight focus:outline-none  focus:border-green-500" id={id} value={value} onChange={(e) => onChange(e.target.value)} required={isRequired}>
                 <option value="">{defaultValue}</option>
                 {options.map(item => <option key={item.value} value={item.option}>{item.option}</option>)}
             </select>

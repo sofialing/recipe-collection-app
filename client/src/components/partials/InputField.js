@@ -1,6 +1,6 @@
 import React from 'react'
 
-const InputField = ({ type, id, value, handleChange, isRequired, autoComplete = "on" }) => {
+const InputField = ({ type, id, value, handleChange, isRequired, autoComplete = "on", placeholder = "" }) => {
     return (
         <input
             type={type}
@@ -10,6 +10,7 @@ const InputField = ({ type, id, value, handleChange, isRequired, autoComplete = 
             value={value}
             required={isRequired}
             onChange={(e) => handleChange(e.target.value)}
+            placeholder={placeholder}
         />
     )
 }

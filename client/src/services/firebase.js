@@ -67,7 +67,8 @@ export const updateRecipe = (recipeId, updatedRecipe) => {
  * @param {String} recipeId The ID of the recipe.
  */
 export const getRecipe = (recipeId) => {
-    return db.doc(recipeId);
+    return db.collection('recipes').doc(recipeId).get();
+
 }
 
 /**
@@ -161,6 +162,14 @@ export const uploadProfilePhoto = (photo) => {
 
     return uploadTask.then(async snapshot => await snapshot.ref.getDownloadURL())
 }
+
+export const uploadRecipeImage = (photo) => {
+    const fileRef = storage.ref(`recipes/${photo.name}`);
+    const uploadTask = fileRef.put(photo);
+
+    return uploadTask.then(async snapshot => await snapshot.ref.getDownloadURL())
+}
+
 
 export const updateMealPlanDate = (recipe, newDate) => {
     return db.collection('meal-plans')

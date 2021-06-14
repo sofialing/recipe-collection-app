@@ -21,9 +21,9 @@ const Recipes = () => {
     return (
         <section className="container px-5 py-16 md:py-24 mx-auto">
             <header className="flex flex-col text-center w-full mb-16 lg:mb-20">
-                <h2 className="text-xs text-green-500 tracking-widest font-medium mb-1 uppercase">Recipe collection</h2>
-                <h1 className="sm:text-3xl text-2xl font-medium mb-4 text-gray-900">All your recipes in one place</h1>
-                <p className="lg:w-2/3 mx-auto leading-relaxed text-base">CookBook is your very own personal recipe organiser. Save your favourite recipes from websites, magazines, recipe books or simply those from your head, all in one place, accessible on all of your devices, anytime.</p>
+                <span className="text-xs text-green-500 tracking-widest font-medium mb-1 uppercase">Recipe collection</span>
+                <h1 className="text-3xl sm:text-4xl mb-4 font-medium text-gray-900">What do you want to cook today?</h1>
+                <p className="lg:w-1/2 mx-auto leading-relaxed tracking-wide text-base">Browse all your favorite recipes to get inspiration. Not sure what to cook? Use the handy <button className="hover:underline" onClick={() => getRandomRecipe()}>recipe roulette</button> to get some ideas.</p>
             </header>
             <FilterRecipesForm cuisineType={cuisineType} recipeType={recipeType} setcuisineType={setcuisineType} setRecipeType={setRecipeType} />
             {loading

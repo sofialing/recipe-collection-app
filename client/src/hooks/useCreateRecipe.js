@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/AuthContext';
-import { createRecipe } from 'services/firebase';
+import { createRecipe, getRecipe } from 'services/firebase';
 
 const useCreateRecipe = (recipe, submit) => {
     const [loading, setLoading] = useState(false);
@@ -15,9 +15,15 @@ const useCreateRecipe = (recipe, submit) => {
         }
         setLoading(true);
         createRecipe(recipe, user.uid)
-            .then(() => {
-                navigate('/recipes');
-
+            .then(async (docRef) => {
+                const doc = await getRecipe(docRef.id);
+                if (doc.exists) {
+                    const slug = doc.data().slug;
+                    navigate('/recipes/' + slug);
+                } else {
+                    setLoading(false);
+                    setError('Could not save recipe.');
+                }
             }).catch(error => {
                 setLoading(false);
                 setError(error.message);

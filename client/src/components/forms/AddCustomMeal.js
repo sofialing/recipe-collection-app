@@ -27,15 +27,15 @@ const AddCustomMeal = ({ setShowModal }) => {
             <h2 className="text-gray-900 text-xl mb-4 mr-24 font-medium">Create custom meal</h2>
             <div className="mb-4">
                 <Label htmlFor="title" text="Title" required={true} />
-                <InputField id="title" value={title} handleChange={setTitle} isRequired={true} />
+                <InputField id="title" value={title} handleChange={setTitle} isRequired={true} placeholder="Give your recipe a name" />
             </div>
             <div className="mb-4">
                 <Label htmlFor="date" text="Pick a date" required={true} />
                 <InputDate id="date" value={date} handleChange={setDate} isRequired={true} />
             </div>
             <div className="mb-4">
-                <Label htmlFor="url" text="Url" />
-                <InputField id="url" value={url} handleChange={setUrl} />
+                <Label htmlFor="url" text="Recipe Url" />
+                <InputField id="url" value={url} handleChange={setUrl} placeholder="http://" />
             </div>
             <button type="submit" className="btn inline-block">Add</button>
         </form>

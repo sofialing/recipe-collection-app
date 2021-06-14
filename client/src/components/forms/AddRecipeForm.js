@@ -41,11 +41,11 @@ const AddRecipeForm = ({ setRecipe }) => {
     return (
         <form onSubmit={onSubmit} className="w-full text-left">
             <div>
-                <Label text="Recipe link" htmlFor="url" />
-                <InputField type="url" id="url" value={url} handleChange={setUrl} required={true} />
+                <Label text="Enter the URL of the recipe you want to import" htmlFor="url" />
+                <InputField type="url" id="url" value={url} handleChange={setUrl} required={true} placeholder="http://" />
             </div>
             <div className="flex items-center mt-6">
-                <button type="submit" disabled={loading} className="inline-block btn">Next</button>
+                <button type="submit" disabled={loading} className="inline-block btn">Import</button>
                 {error && (<Alert text={error} onClick={setError} />)}
             </div>
         </form>
