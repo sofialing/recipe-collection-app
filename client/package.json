@@ -3,20 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.1.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "firebase": "^8.6.1",
     "history": "^5.0.0",
-    "moment": "^2.29.1",
-    "nanoid": "^3.1.23",
+    "moment": "^2.29.4",
+    "nanoid": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.5",
-    "react-scripts": "4.0.3",
-    "slugify": "^1.5.3",
+    "react-scripts": "5.0.1",
+    "slugify": "^1.6.5",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -24,8 +23,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --fix",
-    "pretty": "prettier --write ."
+    "lint": "eslint --fix src",
+    "format": "prettier --write src"
   },
   "eslintConfig": {
     "extends": [
@@ -50,15 +49,20 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "autoprefixer": "^9.8.8",
     "eslint": "^7.32.0",
-    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-tailwindcss": "^3.7.1",
     "lint-staged": "^13.1.0",
-    "postcss": "^7.0.39",
+    "postcss": "^8.4.19",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^7.8.3",
     "prettier": "^2.8.1",
+    "prettier-plugin-tailwindcss": "^0.2.1",
     "tailwindcss": "^3.2.4"
   }
 }
