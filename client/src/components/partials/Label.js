@@ -1,12 +1,17 @@
-import React from 'react'
-
-const Label = ({ text, htmlFor, required = false }) => {
+function Label({ text, htmlFor, required = false }) {
     return (
-        <label className="leading-7 block tracking-widest text-xs font-medium uppercase text-green-500 mb-1" htmlFor={htmlFor}>
+        <label
+            className="mb-1 block text-xs font-medium uppercase leading-7 tracking-widest text-emerald-500"
+            htmlFor={htmlFor}
+        >
             {text}
-            {required && <sup className="text-red-500" title="Required">*</sup>}
+            {required && (
+                <sup className="text-red-500" title="Required">
+                    *
+                </sup>
+            )}
         </label>
-    )
+    );
 }
 
-export default Label
+export default Label;

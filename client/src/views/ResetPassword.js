@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import { useAuth } from 'contexts/AuthContext';
 import image from 'assets/images/login-hero.jpg';
 import Form from 'components/forms/ResetPasswordForm';
+import { useAuth } from 'contexts/AuthContext';
+import { useState } from 'react';
 
-const ResetPassword = () => {
+function ResetPassword() {
     const [loading, setLoading] = useState(false);
     const [notification, setNotification] = useState(null);
     const { resetPassword } = useAuth();
@@ -20,16 +20,21 @@ const ResetPassword = () => {
             setNotification(error.message);
             setLoading(false);
         }
-    }
+    };
 
     return (
-        <section className="container mx-auto flex-grow flex flex-col-reverse lg:flex-row items-center px-5 py-16 md:py-24">
-            <Form onResetPassword={onResetPassword} loading={loading} notification={notification} setNotification={setNotification} />
+        <section className="container mx-auto flex grow flex-col-reverse items-center px-5 py-16 md:py-24 lg:flex-row">
+            <Form
+                onResetPassword={onResetPassword}
+                loading={loading}
+                notification={notification}
+                setNotification={setNotification}
+            />
             <div className="mb-12 lg:mb-0 lg:w-1/2">
                 <img width="640" height="427" alt="" src={image} />
             </div>
         </section>
-    )
+    );
 }
 
 export default ResetPassword;

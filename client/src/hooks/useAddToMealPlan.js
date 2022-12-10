@@ -1,8 +1,8 @@
+import { useAuth } from 'contexts/AuthContext';
+import moment from 'moment';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from 'contexts/AuthContext';
 import { addToMealPlan, getUserMealPlan } from 'services/firebase';
-import moment from 'moment';
 
 const useAddToMealPlan = () => {
     const [showDateModal, setShowDateModal] = useState(false);
@@ -12,8 +12,8 @@ const useAddToMealPlan = () => {
 
     const onAddToMealPlan = async (recipe) => {
         if (!date) {
-            return
-        };
+            return;
+        }
 
         try {
             const snapshot = await getUserMealPlan(user.uid);
@@ -28,9 +28,15 @@ const useAddToMealPlan = () => {
         } catch (error) {
             console.error('Error updating document: ', error);
         }
-    }
+    };
 
-    return { showDateModal, setShowDateModal, date, setDate, onAddToMealPlan };
-}
+    return {
+        showDateModal,
+        setShowDateModal,
+        date,
+        setDate,
+        onAddToMealPlan,
+    };
+};
 
 export default useAddToMealPlan;

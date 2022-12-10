@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from 'contexts/AuthContext';
 import image from 'assets/images/login-hero.jpg';
 import Form from 'components/forms/LoginForm';
+import { useAuth } from 'contexts/AuthContext';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+function Login() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const { login } = useAuth();
@@ -12,7 +12,9 @@ const Login = () => {
 
     const onLogin = async (email, password) => {
         if (!email.length || !password.length) {
-            return setError('Make sure you have entered both a valid email and a password.');
+            return setError(
+                'Make sure you have entered both a valid email and a password.',
+            );
         }
 
         setError(null);
@@ -25,16 +27,22 @@ const Login = () => {
             setError(error.message);
             setLoading(false);
         }
-    }
+    };
 
     return (
-        <section className="container mx-auto flex-grow flex flex-col-reverse lg:flex-row items-center px-5 py-16 md:py-24">
+        <section className="container mx-auto flex grow flex-col-reverse items-center px-5 py-16 md:py-24 lg:flex-row">
             <Form onLogin={onLogin} loading={loading} error={error} />
             <div className="mb-12 lg:mb-0 lg:w-1/2">
-                <img className="object-cover w-full" width="640" height="427" alt="" src={image} />
+                <img
+                    className="w-full object-cover"
+                    width="640"
+                    height="427"
+                    alt=""
+                    src={image}
+                />
             </div>
         </section>
-    )
+    );
 }
 
 export default Login;

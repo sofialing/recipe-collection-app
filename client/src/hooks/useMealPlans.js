@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
 import { useAuth } from 'contexts/AuthContext';
-import { getMealPlanSnapshot } from '../services/firebase';
 import moment from 'moment';
+import { useEffect, useState } from 'react';
+
+import { getMealPlanSnapshot } from '../services/firebase';
 
 const useMealPlans = () => {
     const [error, setError] = useState(false);
@@ -11,33 +12,35 @@ const useMealPlans = () => {
 
     useEffect(() => {
         const unsubscribe = getMealPlanSnapshot(user.uid, {
-            next: snapshot => {
+            next: (snapshot) => {
                 setLoading(true);
                 if (snapshot.empty) {
-                    setError('Oh no! Could not find mealplan.')
+                    setError('Oh no! Could not find mealplan.');
                 } else {
-                    const recipes = snapshot.docs[0].data().recipes.sort((a, b) => {
-                        return moment(a.date).format('X') - moment(b.date).format('X')
-                    });
+                    const recipes = snapshot.docs[0]
+                        .data()
+                        .recipes.sort(
+                            (a, b) =>
+                                moment(a.date).format('X') - moment(b.date).format('X'),
+                        );
 
                     setMealPlan({
                         id: snapshot.docs[0].id,
-                        recipes: recipes,
+                        recipes,
                     });
                 }
                 setLoading(false);
             },
-            error: error => {
+            error: (error) => {
                 setError(error.message);
                 setLoading(false);
-            }
-        })
+            },
+        });
 
         return unsubscribe;
-    }, [user.uid])
+    }, [user.uid]);
 
-
-    return { error, loading, mealPlan }
-}
+    return { error, loading, mealPlan };
+};
 
 export default useMealPlans;

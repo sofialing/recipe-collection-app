@@ -1,22 +1,26 @@
 import { useState } from 'react';
-import MobileMenu from './MobileMenu';
+
 import MainMenu from './MainMenu';
+import MobileMenu from './MobileMenu';
 import ProfileDropdown from './ProfileDropdown';
 
-const Navbar = () => {
+function Navbar() {
     const [toggleDropdown, setToggleDropdown] = useState(false);
 
     return (
-        <nav className="bg-white shadow-sm sticky top-0 z-30">
+        <nav className="sticky top-0 z-30 bg-white shadow-sm">
             <div className="container mx-auto px-5">
-                <div className="relative flex items-center justify-between h-16">
+                <div className="relative flex h-16 items-center justify-between">
                     <MainMenu />
-                    <ProfileDropdown toggleDropdown={toggleDropdown} setToggleDropdown={setToggleDropdown} />
+                    <ProfileDropdown
+                        toggleDropdown={toggleDropdown}
+                        setToggleDropdown={setToggleDropdown}
+                    />
                 </div>
             </div>
             <MobileMenu />
         </nav>
-    )
+    );
 }
 
 export default Navbar;
