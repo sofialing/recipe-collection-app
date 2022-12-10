@@ -15,38 +15,16 @@ import ResetPassword from 'views/ResetPassword';
 const AppRoutes = () => {
     return (
         <Routes>
-            <Route exact path="">
-                <Home />
-            </Route>
-            <Route path="login">
-                <Login />
-            </Route>
-            <Route path="reset-password">
-                <ResetPassword />
-            </Route>
-            <Route path="create-account">
-                <CreateAccount />
-            </Route>
-            <ProtectedRoute path="recipes">
-                <Route path="/">
-                    <Recipes />
-                </Route>
-                <Route path="/:slug">
-                    <Recipe />
-                </Route>
-            </ProtectedRoute>
-            <ProtectedRoute path="add-recipe">
-                <CreateRecipe />
-            </ProtectedRoute>
-            <ProtectedRoute path="meal-planner">
-                <MealPlanner />
-            </ProtectedRoute>
-            <ProtectedRoute path="account">
-                <UserAccount />
-            </ProtectedRoute>
-            <ProtectedRoute path="grocery-list">
-                <GroceryList />
-            </ProtectedRoute>
+            <Route exact path="" element={<Home />} />
+            <Route path="login" element={<Login />} />
+            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="create-account" element={<CreateAccount />} />
+            <Route path="recipes" element={<ProtectedRoute><Recipes /></ProtectedRoute>} />
+            <Route path="recipes/:slug" element={<ProtectedRoute><Recipe /></ProtectedRoute>} />
+            <Route path="add-recipe" element={<ProtectedRoute><CreateRecipe /></ProtectedRoute>} />
+            <Route path="meal-planner" element={<ProtectedRoute><MealPlanner /></ProtectedRoute>} />
+            <Route path="account" element={<ProtectedRoute><UserAccount /></ProtectedRoute>} />
+            <Route path="grocery-list" element={<ProtectedRoute><GroceryList /> </ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     )
