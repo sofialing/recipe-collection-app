@@ -1,18 +1,15 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: 'class',
-  theme: {
-    fontFamily: {
-      sans: ['canada-type-gibson', 'sans-serif'],
+    content: ['./src/**/*.{js,jsx,ts,tsx}'],
+    theme: {
+        extend: {
+            fontFamily: {
+                sans: ['canada-type-gibson', 'sans-serif'],
+            },
+        },
     },
-    extend: {},
-  },
-  variants: {
-    extend: {
-      opacity: ['disabled'],
-    }
-  },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-  ],
-}
+    corePlugins: {
+        aspectRatio: false,
+    },
+    plugins: [require('@tailwindcss/aspect-ratio')],
+};

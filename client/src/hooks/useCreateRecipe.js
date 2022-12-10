@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/AuthContext';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createRecipe, getRecipe } from 'services/firebase';
 
 const useCreateRecipe = (recipe, submit) => {
@@ -18,20 +18,20 @@ const useCreateRecipe = (recipe, submit) => {
             .then(async (docRef) => {
                 const doc = await getRecipe(docRef.id);
                 if (doc.exists) {
-                    const slug = doc.data().slug;
-                    navigate('/recipes/' + slug);
+                    const { slug } = doc.data();
+                    navigate(`/recipes/${slug}`);
                 } else {
                     setLoading(false);
                     setError('Could not save recipe.');
                 }
-            }).catch(error => {
+            })
+            .catch((error) => {
                 setLoading(false);
                 setError(error.message);
-            })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [submit])
+            });
+    }, [submit]);
 
-    return { loading, error }
-}
+    return { loading, error };
+};
 
 export default useCreateRecipe;

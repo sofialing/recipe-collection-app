@@ -1,59 +1,42 @@
-import { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from 'database';
+import { createContext, useContext, useEffect, useState } from 'react';
+
 const AuthContext = createContext();
 
-const useAuth = () => {
-    return useContext(AuthContext);
-}
+const useAuth = () => useContext(AuthContext);
 
-const AuthContextProvider = ({ children }) => {
+function AuthContextProvider({ children }) {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user);
             setLoading(false);
-        })
+        });
         return unsubscribe;
-    }, [])
+    }, []);
 
-    const createAccount = ({ name, email, password }) => {
-        return auth.createUserWithEmailAndPassword(email, password)
-            .then(({ user }) => user.updateProfile({ displayName: name }))
-    }
+    const createAccount = ({ name, email, password }) =>
+        auth
+            .createUserWithEmailAndPassword(email, password)
+            .then(({ user }) => user.updateProfile({ displayName: name }));
 
-    const deleteAccount = () => {
-        return user.delete();
-    }
+    const deleteAccount = () => user.delete();
 
-    const login = (email, password) => {
-        return auth.signInWithEmailAndPassword(email, password);
-    }
+    const login = (email, password) => auth.signInWithEmailAndPassword(email, password);
 
-    const logout = () => {
-        return auth.signOut();
-    }
+    const logout = () => auth.signOut();
 
-    const resetPassword = (email) => {
-        return auth.sendPasswordResetEmail(email);
-    }
+    const resetPassword = (email) => auth.sendPasswordResetEmail(email);
 
-    const updateEmail = (email) => {
-        return user.updateEmail(email);
-    }
+    const updateEmail = (email) => user.updateEmail(email);
 
-    const updateProfile = (displayName) => {
-        return user.updateProfile({ displayName });
-    }
+    const updateProfile = (displayName) => user.updateProfile({ displayName });
 
-    const updatePhoto = (photoURL) => {
-        return user.updateProfile({ photoURL });
-    }
+    const updatePhoto = (photoURL) => user.updateProfile({ photoURL });
 
-    const updatePassword = (newPassword) => {
-        return user.updatePassword(newPassword);
-    }
+    const updatePassword = (newPassword) => user.updatePassword(newPassword);
 
     const contextValues = {
         createAccount,
@@ -67,13 +50,9 @@ const AuthContextProvider = ({ children }) => {
         updatePhoto,
         updateProfile,
         user,
-    }
+    };
 
-    return (
-        <AuthContext.Provider value={contextValues}>
-            {children}
-        </AuthContext.Provider>
-    )
+    return <AuthContext.Provider value={contextValues}>{children}</AuthContext.Provider>;
 }
 
-export { useAuth, AuthContext, AuthContextProvider as default };
+export { AuthContext, AuthContextProvider as default, useAuth };

@@ -1,14 +1,14 @@
-const InputDate = ({ id, value, handleChange, isRequired = false }) => {
+function InputDate({ id, value, handleChange, isRequired = false }) {
     return (
         <input
             type="date"
             id={id}
             value={value}
-            className="w-full bg-white rounded border border-gray-300 focus:border-green-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            className="w-full rounded border border-gray-300 bg-white py-1 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-emerald-500"
             onChange={(e) => handleChange(e.target.value)}
             required={isRequired}
         />
-    )
+    );
 }
 
 export default InputDate;

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { useAuth } from 'contexts/AuthContext';
+import { useEffect, useState } from 'react';
 import { getRecipeSnapshot } from 'services/firebase';
 
 const useRecipe = (slug) => {
@@ -8,19 +8,18 @@ const useRecipe = (slug) => {
     const [recipe, setRecipe] = useState([]);
     const { user } = useAuth();
 
-
     useEffect(() => {
         if (!slug) {
             return;
         }
 
         const unsubscribe = getRecipeSnapshot(slug, {
-            next: snapshot => {
+            next: (snapshot) => {
                 setLoading(true);
                 if (!snapshot.empty && snapshot.docs[0].data().ownerId === user.uid) {
                     setRecipe({
                         id: snapshot.docs[0].id,
-                        ...snapshot.docs[0].data()
+                        ...snapshot.docs[0].data(),
                     });
                 } else {
                     setError('Oh no! Could not find recipe.');
@@ -30,15 +29,13 @@ const useRecipe = (slug) => {
             error: () => {
                 setError('Oh no! Something went wrong, try again.');
                 setLoading(false);
-            }
-        })
+            },
+        });
 
         return unsubscribe;
+    }, [user.uid, slug]);
 
-    }, [user.uid, slug])
-
-    return { recipe, error, loading }
-
-}
+    return { recipe, error, loading };
+};
 
 export default useRecipe;

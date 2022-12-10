@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react';
 
 const useFilterRecipes = (recipes, recipeType, cuisineType) => {
     const [filteredRecipes, setFilteredRecipes] = useState([]);
@@ -12,24 +12,25 @@ const useFilterRecipes = (recipes, recipeType, cuisineType) => {
         let _recipes;
 
         if (recipeType.length && !cuisineType.length) {
-            _recipes = recipes.filter(recipe => recipe.recipeType === recipeType);
+            _recipes = recipes.filter((recipe) => recipe.recipeType === recipeType);
         }
 
         if (!recipeType.length && cuisineType.length) {
-            _recipes = recipes.filter(recipe => recipe.cuisineType === cuisineType);
+            _recipes = recipes.filter((recipe) => recipe.cuisineType === cuisineType);
         }
 
         if (recipeType.length && cuisineType.length) {
-            _recipes = recipes.filter(recipe => {
-                return recipe.recipeType === recipeType && recipe.cuisineType === cuisineType;
-            });
+            _recipes = recipes.filter(
+                (recipe) =>
+                    recipe.cuisineType === cuisineType &&
+                    recipe.recipeType === recipeType,
+            );
         }
 
         setFilteredRecipes(_recipes);
-
-    }, [recipes, recipeType, cuisineType])
+    }, [recipes, recipeType, cuisineType]);
 
     return { filteredRecipes };
-}
+};
 
 export default useFilterRecipes;
